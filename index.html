@@ -13,12 +13,144 @@
 
   <title>Weather Dashboard</title>
 </head>
+
 <body>
   <header class='container-fluid text-center text-white py-3'>
     <h1>
       Weather Dashboard
     </h1>
   </header>
+
+  <section class='container-fluid'>
+    <div class='row'>
+      <!-- Search section -->
+      <aside class='col-lg-3'>
+        <h3 class='py-2'>
+          Search for a City:
+        </h3>
+        <form class='pb-3 border-bottom border-secondary'>
+          <div class='form-group'>
+            <input type='text' class='form-control border-dark' id='city'>
+          </div>
+          <button type='submit' class='btn btn-primary text-white-60 container-fluid'>
+            Search
+          </button>
+          <div id='search-history'></div>
+        </form>
+      </aside>
+
+      <!-- Today's Conditions -->
+      <section class='col-lg-8'>
+        <div class='row'>
+          <div class='col-12 p-2 m-2 border border-dark'>
+            <h3>San Diego (7/19/2021) (weather icon)</h3>
+            <p>
+              Temp: value F
+            </p>
+            <p>
+              Wind: value MPH
+            </p>
+            <p>
+              Humidity: value %
+            </p>
+            <p>
+              UV Index: value in color indicator
+            </p>
+          </div>
+        </div>
+        <!-- 5-Day Forecast -->
+        <div class='row'>
+          <h4 class='col-12 p-2'>
+            5-Day Forecast:
+          </h4>
+        </div>
+        <div class='row pl-2 d-flex justify-content-between'>
+          <div class='col-md-2 card p-2 text-white'>
+              <h5>
+                7/20/2021
+              </h5>
+              <p>
+                icon
+              </p>
+              <p>
+                Temp: value F
+              </p>
+              <p>
+                Wind: value MPH
+              </p>
+              <p>
+                Humidity: value %
+              </p>
+          </div>
+          <div class='col-md-2 card p-2 text-white'>
+            <h5>
+              7/21/2021
+            </h5>
+            <p>
+              icon
+            </p>
+            <p>
+              Temp: value F
+            </p>
+            <p>
+              Wind: value MPH
+            </p>
+            <p>
+              Humidity: value %
+            </p>
+        </div><div class='col-md-2 card p-2 text-white'>
+          <h5>
+            7/22/2021
+          </h5>
+          <p>
+            icon
+          </p>
+          <p>
+            Temp: value F
+          </p>
+          <p>
+            Wind: value MPH
+          </p>
+          <p>
+            Humidity: value %
+          </p>
+      </div><div class='col-md-2 card p-2 text-white'>
+        <h5>
+          7/23/2021
+        </h5>
+        <p>
+          icon
+        </p>
+        <p>
+          Temp: value F
+        </p>
+        <p>
+          Wind: value MPH
+        </p>
+        <p>
+          Humidity: value %
+        </p>
+    </div><div class='col-md-2 card p-2 text-white'>
+      <h5>
+        7/24/2021
+      </h5>
+      <p>
+        icon
+      </p>
+      <p>
+        Temp: value F
+      </p>
+      <p>
+        Wind: value MPH
+      </p>
+      <p>
+        Humidity: value %
+      </p>
+  </div>
+        </div>
+      </section>
+    </div>
+  </section>
 
 
   <!-- Following three scripts for Bootstrap functionality. -->

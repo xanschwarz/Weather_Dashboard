@@ -1,3 +1,16 @@
 header {
     background-image: linear-gradient(to right, blue, navy);
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: bold;
+}
+
+.card {
+    background-color: #007bff;
+}
