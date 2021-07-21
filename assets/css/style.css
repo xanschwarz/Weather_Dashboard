@@ -1,5 +1,5 @@
 header {
-    background-image: linear-gradient(to right, blue, navy);
+    background-image: linear-gradient(to right, #007bff, navy);
 }
 
 h1,
@@ -13,4 +13,14 @@ h6 {
 
 .card {
     background-color: #007bff;
+}
+
+#current-UV-index {
+    font-size: 100%;
+    padding: .3em .8em;
+}
+
+.forecast-icon {
+    height: 50%;
+    width: 50%;
 }

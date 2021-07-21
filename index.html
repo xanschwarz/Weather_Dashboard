@@ -32,7 +32,7 @@
           <div class='form-group'>
             <input type='text' class='form-control border-dark' id='city'>
           </div>
-          <button type='submit' class='btn btn-primary text-white-60 container-fluid'>
+          <button type='submit' class='btn btn-primary text-white-60 container-fluid' id='search-primary'>
             Search
           </button>
           <div id='search-history'></div>
@@ -40,113 +40,59 @@
       </aside>
 
       <!-- Today's Conditions -->
-      <section class='col-lg-8'>
+      <section class='col-lg-8 d-none' id='results-group'>
         <div class='row'>
           <div class='col-12 p-2 m-2 border border-dark'>
-            <h3>San Diego (7/19/2021) (weather icon)</h3>
-            <p>
-              Temp: value F
-            </p>
-            <p>
-              Wind: value MPH
-            </p>
-            <p>
-              Humidity: value %
-            </p>
-            <p>
-              UV Index: value in color indicator
-            </p>
+            <!-- h3 for city name, date, and current conditions icon. p tags for Temp, Wind, Humidity, and UV Index -->
+            <div class='d-flex'>
+              <h3 id='searched-city-title'></h3><img id='weather-icon'/>
+            </div>
+            <p>Temp: <span id='current-temp'></span></p>
+            <p>Wind: <span id='current-wind'></span></p>
+            <p>Humidity: <span id='current-humidity'></span></p>
+            <p>UV Index: <span class='badge' id='current-UV-index'></span></p>
           </div>
         </div>
         <!-- 5-Day Forecast -->
-        <div class='row'>
+        <div class='row forecast-title'>
           <h4 class='col-12 p-2'>
             5-Day Forecast:
           </h4>
         </div>
         <div class='row pl-2 d-flex justify-content-between'>
           <div class='col-md-2 card p-2 text-white'>
-              <h5>
-                7/20/2021
-              </h5>
-              <p>
-                icon
-              </p>
-              <p>
-                Temp: value F
-              </p>
-              <p>
-                Wind: value MPH
-              </p>
-              <p>
-                Humidity: value %
-              </p>
+            <h5 class='forecast-date'></h5>
+            <img class='forecast-icon d-flex'/>
+            <p class='forecast-temp'></p>
+            <p class='forecast-wind'></p>
+            <p class='forecast-humidity'></p>
           </div>
           <div class='col-md-2 card p-2 text-white'>
-            <h5>
-              7/21/2021
-            </h5>
-            <p>
-              icon
-            </p>
-            <p>
-              Temp: value F
-            </p>
-            <p>
-              Wind: value MPH
-            </p>
-            <p>
-              Humidity: value %
-            </p>
-        </div><div class='col-md-2 card p-2 text-white'>
-          <h5>
-            7/22/2021
-          </h5>
-          <p>
-            icon
-          </p>
-          <p>
-            Temp: value F
-          </p>
-          <p>
-            Wind: value MPH
-          </p>
-          <p>
-            Humidity: value %
-          </p>
-      </div><div class='col-md-2 card p-2 text-white'>
-        <h5>
-          7/23/2021
-        </h5>
-        <p>
-          icon
-        </p>
-        <p>
-          Temp: value F
-        </p>
-        <p>
-          Wind: value MPH
-        </p>
-        <p>
-          Humidity: value %
-        </p>
-    </div><div class='col-md-2 card p-2 text-white'>
-      <h5>
-        7/24/2021
-      </h5>
-      <p>
-        icon
-      </p>
-      <p>
-        Temp: value F
-      </p>
-      <p>
-        Wind: value MPH
-      </p>
-      <p>
-        Humidity: value %
-      </p>
-  </div>
+            <h5 class='forecast-date'></h5>
+            <img class='forecast-icon'/>
+            <p class='forecast-temp'></p>
+            <p class='forecast-wind'></p>
+            <p class='forecast-humidity'></p>
+          </div>
+          <div class='col-md-2 card p-2 text-white'>
+            <h5 class='forecast-date'></h5>
+            <img class='forecast-icon'/>
+            <p class='forecast-temp'></p>
+            <p class='forecast-wind'></p>
+            <p class='forecast-humidity'></p>
+          </div><div class='col-md-2 card p-2 text-white'>
+            <h5 class='forecast-date'></h5>
+            <img class='forecast-icon'/>
+            <p class='forecast-temp'></p>
+            <p class='forecast-wind'></p>
+            <p class='forecast-humidity'></p>
+          </div><div class='col-md-2 card p-2 text-white'>
+            <h5 class='forecast-date'></h5>
+            <img class='forecast-icon'/>
+            <p class='forecast-temp'></p>
+            <p class='forecast-wind'></p>
+            <p class='forecast-humidity'></p>
+          </div>
         </div>
       </section>
     </div>
