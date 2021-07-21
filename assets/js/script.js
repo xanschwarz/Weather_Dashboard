@@ -1,27 +1,15 @@
 // ----------------------------------------------- User Story and Acceptance Criteria -----------------------------------------------
-// Want to see the weather outlook for multiple cities.
 
-// Weather dashboard w/form inputs, can search for a city, results will be current and future conditions for that city and city is 
-// added to the search history.
-
-// Current conditions for city shows city name, date, icon representation of conditions, the temp, humidity, wind speed, and UV index.
-
-// UV index displays with color indicating conditions are favorable, moderate, or severe.
-
-// Future conditions are presented as 5-day forecast. Each card has date, icon rep of conditions, the temp, wind speed, and humidity.
+// Searched city is added to the search history.
 
 // Clicking on city in search history again presents current and future conditions for that city.
 // ----------------------------------------------------------------------------------------------------------------------------------
-
-// 1. When search is pressed, get and display todays forecast and date for searched city
-
-// 2. Get and display 5-Day Forecast
 
 // 3. Save and display search history on load
 
 // 4. Clicking on search history displays results for that search
 
-
+// Global variables
 var theMoment = moment();
 var weatherAPIKey = '5d05df2b34ff9a1707887594fcb9ee83';
 var searchCity = $('#city')
@@ -41,15 +29,17 @@ var forecastHumidity = $('.forecast-humidity')
 var searchLon
 var searchLat
 var weatherIconSRC
-// var searchedCityID
 
+// Function to be called on button press. Gets and displays weather.
 function getWeather(event) {
     event.preventDefault();
+
+    // Display results elements, initialize local variables.
     var citySearched = searchCity.val().toUpperCase();
-    localStorage.setItem('searches', citySearched)
     resultsGroup.removeClass('d-none');
     var date = theMoment.format('(M/D/Y)');
     var queryURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + citySearched + '&appid=' + weatherAPIKey + '&units=imperial';
+    // Get and display today's conditions.
     $.ajax({
         url: queryURL,
         method: 'GET',
@@ -62,6 +52,8 @@ function getWeather(event) {
         searchLon = response.coord.lon;
         searchLat = response.coord.lat;
         var queryURLOneCall = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + searchLat + '&lon=' + searchLon + '&exclude=minutely,hourly&appID=' + weatherAPIKey + '&units=imperial';
+
+        // Get and display today's UV index and 5 day forecast. Style today's UV index based on severity.
         $.ajax({
             url: queryURLOneCall,
             method: 'GET',
@@ -83,7 +75,7 @@ function getWeather(event) {
             weatherIconSRC = 'https://openweathermap.org/img/w/' + responseOneCall.current.weather[0].icon + '.png';
             weatherIcon.attr('src', weatherIconSRC).attr('alt', responseOneCall.current.weather[0].description);
 
-            // get, display 5 day forecast
+            // Get, display 5 day forecast.
             for (i = 0; i < 5; i++) {
                 var thisDate = theMoment.add(1, 'd').format('(M/D/Y)');
                 forecastDate[i].innerHTML = thisDate;
@@ -98,9 +90,8 @@ function getWeather(event) {
         
     })
     
+    // Clear input area.
     searchCity.val('');
 }
 
 searchButton.on('click', getWeather)
-
-// search history persists

@@ -4,13 +4,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Is a reset CSS necessary? Eliminate any unnecessary stylesheet links. -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="./assets/css/style.css">
-
   <title>Weather Dashboard</title>
 </head>
 
@@ -23,7 +19,8 @@
 
   <section class='container-fluid'>
     <div class='row'>
-      <!-- Search section -->
+
+      <!-- Search section with form for user input. -->
       <aside class='col-lg-3'>
         <h3 class='py-2'>
           Search for a City:
@@ -39,11 +36,11 @@
         </form>
       </aside>
 
-      <!-- Today's Conditions -->
+      <!-- Today's conditions, displayed on search button or history button being pressed. -->
       <section class='col-lg-8 d-none' id='results-group'>
         <div class='row'>
           <div class='col-12 p-2 m-2 border border-dark'>
-            <!-- h3 for city name, date, and current conditions icon. p tags for Temp, Wind, Humidity, and UV Index -->
+            <!-- h3 for city name, date, with current conditions icon besides it. p tags for Temp, Wind, Humidity, and UV Index -->
             <div class='d-flex'>
               <h3 id='searched-city-title'></h3><img id='weather-icon'/>
             </div>
@@ -53,7 +50,8 @@
             <p>UV Index: <span class='badge' id='current-UV-index'></span></p>
           </div>
         </div>
-        <!-- 5-Day Forecast -->
+
+        <!-- 5-day forecast, displayed with today's conditions. -->
         <div class='row forecast-title'>
           <h4 class='col-12 p-2'>
             5-Day Forecast:
@@ -98,8 +96,7 @@
     </div>
   </section>
 
-
-  <!-- Following three scripts for Bootstrap functionality. -->
+  <!-- Following scripts for Bootstrap, moment, and javascript functionality. -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
