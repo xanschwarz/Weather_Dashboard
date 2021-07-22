@@ -1,14 +1,3 @@
-// ----------------------------------------------- User Story and Acceptance Criteria -----------------------------------------------
-
-// Searched city is added to the search history.
-
-// Clicking on city in search history again presents current and future conditions for that city.
-// ----------------------------------------------------------------------------------------------------------------------------------
-
-// 3. Save and display search history on load
-
-// 4. Clicking on search history displays results for that search
-
 // Global variables
 var theMoment = moment();
 var weatherAPIKey = '5d05df2b34ff9a1707887594fcb9ee83';
@@ -28,40 +17,31 @@ var forecastWind = $('.forecast-wind')
 var forecastHumidity = $('.forecast-humidity')
 var searchHistoryStorage = JSON.parse(localStorage.getItem("searched")) || [];
 var searchHistoryEl = $('#search-history')
-var input
 var searchLon
 var searchLat
 var weatherIconSRC
 
+// Function to generate search history buttons. Called on page load and button press to always display all searches stored locally. Resets
+// moment so each button press doesn't keep adding days to previously used moment. Empties the search history html so it doesn't accumulate.
+// Loops through local storage and adds search buttons by stored search locations.
 function searchHistoryButtons() {
     theMoment = moment();
     searchHistoryEl.text('');
-    // Loop thro search history, making elements and adding attributes then appending
-
     
     for (i = 0; i <searchHistoryStorage.length; i++) {
-        console.log(searchHistoryStorage[i])
-        // jquery
         searchHistoryEl.append($("<button type='submit' class='btn btn-secondary text-black container-fluid search-button'></button>").text(searchHistoryStorage[i]))
-
-        // // buttonAdd.addEventListener('click', getWeather(buttonAdd.value))
     }
 }
 searchHistoryButtons();
 
 // Function to be called on button press. Gets and displays weather.
-function getWeather(event) {
-    event.preventDefault();
-    input = searchCity.val()
-    searchHistoryStorage.push(input);
-    localStorage.setItem('searched', JSON.stringify(searchHistoryStorage));
-    searchHistoryButtons()
-
-    // Display results elements, initialize local variables.
+function getWeather(input) {
+    // Initialize local variables for use throughout.
     var citySearched = input.toUpperCase();
     var date = theMoment.format('(M/D/Y)');
     var queryURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + citySearched + '&appid=' + weatherAPIKey + '&units=imperial';
-    // Get and display today's conditions.
+
+    // Get and display today's weather conditions, temperature, wind, and humidity with the location and date.
     $.ajax({
         url: queryURL,
         method: 'GET',
@@ -75,7 +55,7 @@ function getWeather(event) {
         searchLat = response.coord.lat;
         var queryURLOneCall = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + searchLat + '&lon=' + searchLon + '&exclude=minutely,hourly&appID=' + weatherAPIKey + '&units=imperial';
 
-        // Get and display today's UV index and 5 day forecast. Style today's UV index based on severity.
+        // Get and display today's UV index with it's exposure category and 5 day forecast. Style today's UV index based on severity.
         $.ajax({
             url: queryURLOneCall,
             method: 'GET',
@@ -88,15 +68,15 @@ function getWeather(event) {
             }
             else if (ifUV <= 5) {
                 currentUVIndex.text(responseOneCall.current.uvi + ' Moderate')
-                $(currentUVIndex).css('background-color', 'yellow')
+                $(currentUVIndex).css('background-color', 'yellow').css('color', 'black')
             }
             else if (ifUV <= 7) {
                 currentUVIndex.text(responseOneCall.current.uvi + ' High')
-                $(currentUVIndex).css('background-color', 'orange')
+                $(currentUVIndex).css('background-color', 'orange').css('color', 'black')
             }
             else if (ifUV <= 10) {
                 currentUVIndex.text(responseOneCall.current.uvi + ' Very high')
-                $(currentUVIndex).css('background-color', 'red')
+                $(currentUVIndex).css('background-color', 'red').css('color', 'black')
             }
             else {
                 currentUVIndex.text(responseOneCall.current.uvi + ' Extreme')
@@ -105,7 +85,7 @@ function getWeather(event) {
             weatherIconSRC = 'https://openweathermap.org/img/w/' + responseOneCall.current.weather[0].icon + '.png';
             weatherIcon.attr('src', weatherIconSRC).attr('alt', responseOneCall.current.weather[0].description);
 
-            // Get, display 5 day forecast.
+            // Get, display 5 day forecast with date, weather conditions, temperature, wind, and humidity.
             for (i = 0; i < 5; i++) {
                 var thisDate = theMoment.add(1, 'd').format('(M/D/Y)');
                 forecastDate[i].innerHTML = thisDate;
@@ -125,4 +105,20 @@ function getWeather(event) {
     searchCity.val('');
 }
 
-searchButton.on('click', getWeather)
+// When the Search for a City button is pressed the input is added to local storage, added to the search history buttons, and passed to the
+// get and display weather function.
+searchButton.on('click', function(event) {
+    event.preventDefault();
+    var userInput = searchCity.val()
+    searchHistoryStorage.push(userInput);
+    localStorage.setItem('searched', JSON.stringify(searchHistoryStorage));
+    searchHistoryButtons()
+    getWeather(userInput);
+})
+
+// When a search history button is pressed, it's associated location is used to call the get and display weather function.
+$('.search-button').on('click', function(event) {
+    event.preventDefault();
+    var searchInput = event.target.innerHTML;
+    getWeather(searchInput);
+})
