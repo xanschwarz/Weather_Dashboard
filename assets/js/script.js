@@ -26,17 +26,39 @@ var forecastIcon = $('.forecast-icon')
 var forecastTemp = $('.forecast-temp')
 var forecastWind = $('.forecast-wind')
 var forecastHumidity = $('.forecast-humidity')
+var searchHistoryStorage = JSON.parse(localStorage.getItem("searched")) || [];
+var searchHistoryEl = $('#search-history')
+var input
 var searchLon
 var searchLat
 var weatherIconSRC
 
+function searchHistoryButtons() {
+    theMoment = moment();
+    searchHistoryEl.text('');
+    // Loop thro search history, making elements and adding attributes then appending
+
+    
+    for (i = 0; i <searchHistoryStorage.length; i++) {
+        console.log(searchHistoryStorage[i])
+        // jquery
+        searchHistoryEl.append($("<button type='submit' class='btn btn-secondary text-black container-fluid search-button'></button>").text(searchHistoryStorage[i]))
+
+        // // buttonAdd.addEventListener('click', getWeather(buttonAdd.value))
+    }
+}
+searchHistoryButtons();
+
 // Function to be called on button press. Gets and displays weather.
 function getWeather(event) {
     event.preventDefault();
+    input = searchCity.val()
+    searchHistoryStorage.push(input);
+    localStorage.setItem('searched', JSON.stringify(searchHistoryStorage));
+    searchHistoryButtons()
 
     // Display results elements, initialize local variables.
-    var citySearched = searchCity.val().toUpperCase();
-    resultsGroup.removeClass('d-none');
+    var citySearched = input.toUpperCase();
     var date = theMoment.format('(M/D/Y)');
     var queryURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + citySearched + '&appid=' + weatherAPIKey + '&units=imperial';
     // Get and display today's conditions.
@@ -59,17 +81,25 @@ function getWeather(event) {
             method: 'GET',
         })
         .then(function (responseOneCall) {
-            currentUVIndex.text(responseOneCall.current.uvi)
-            if (currentUVIndex.text() <= 2) {
+            ifUV = responseOneCall.current.uvi;
+            if (ifUV <= 2) {
+                currentUVIndex.text(responseOneCall.current.uvi + ' Low')
                 $(currentUVIndex).css('background-color', 'green').css('color', 'white')
             }
-            else if (currentUVIndex.text() <= 5)
+            else if (ifUV <= 5) {
+                currentUVIndex.text(responseOneCall.current.uvi + ' Moderate')
                 $(currentUVIndex).css('background-color', 'yellow')
-            else if (currentUVIndex.text() <= 7)
+            }
+            else if (ifUV <= 7) {
+                currentUVIndex.text(responseOneCall.current.uvi + ' High')
                 $(currentUVIndex).css('background-color', 'orange')
-            else if (currentUVIndex.text() <= 10)
+            }
+            else if (ifUV <= 10) {
+                currentUVIndex.text(responseOneCall.current.uvi + ' Very high')
                 $(currentUVIndex).css('background-color', 'red')
+            }
             else {
+                currentUVIndex.text(responseOneCall.current.uvi + ' Extreme')
                 $(currentUVIndex).css('background-color', 'purple').css('color', 'white')
             }
             weatherIconSRC = 'https://openweathermap.org/img/w/' + responseOneCall.current.weather[0].icon + '.png';
@@ -86,6 +116,7 @@ function getWeather(event) {
                 forecastWind[i].innerHTML = responseOneCall.daily[i].wind_speed + ' MPH';
                 forecastHumidity[i].innerHTML = responseOneCall.daily[i].humidity + '%';
             }
+            resultsGroup.removeClass('d-none');
         })
         
     })

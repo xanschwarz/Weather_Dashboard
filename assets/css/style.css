@@ -24,3 +24,16 @@ h6 {
     height: 40%;
     width: 40%;
 }
+
+#search-history {
+    padding: 16px 0 0 0;
+}
+
+.search-button {
+    margin: 0 0 16px 0;
+}
+
+.text-black {
+    color: black;
+    font-weight: 500;
+}
